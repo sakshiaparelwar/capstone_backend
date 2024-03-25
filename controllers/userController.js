@@ -20,14 +20,15 @@ exports.createUser = (req, res, next) => {
     });
 };
 
-exports.getUsers = (req, res, next) => {
-  userSchema.find((err, data) => {
-    if (err) {
-      return next(err);
-    } else {
-      return res.json(data);
-    }
-  });
+exports.getUsers = async (req, res, next) => {
+  try {
+    const alldata = await userSchema.find({});
+    // console.log(alldata);
+
+    res.status(201).send(alldata);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.userLogin = (req, res, next) => {
